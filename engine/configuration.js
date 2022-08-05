@@ -42,9 +42,45 @@ export var hhresell = "0x261D8c5e9742e6f7f1076Fa1F560894524e19cad";
 export var hhnftcol = "0x057ef64E23666F000b34aE31332854aCBd1c8544";
 export var hhnft    = "0xcf27F781841484d5CF7e155b44954D7224caF1dD";           //NFTbyUser 
 export var hhmarket = "0xe4EB561155AFCe723bB1fF8606Fbfe9b28d5d38D";           //Marketplace for listing NFTbyUser and minting diffrently
-var hhrpc = "http://localhost:8545"; //"http://node.a3b.io:";
+export var hhrpc = "http://localhost:8545"; //"http://node.a3b.io:";
 //var hhrpc = "https://rpc.ankr.com/eth_rinkeby"
 /*
 Global Parameters
 */
-export var mainnet = hhrpc
+//export var mainnet = hhrpc
+
+/*
+HardHat Testnet
+*/
+// export var hhresell = "YOUR CONTRACT ADDRESS";
+// export var hhnftcol = "YOUR CONTRACT ADDRESS";
+// export var hhnft = "YOUR CONTRACT ADDRESS";
+// export var hhmarket = "YOUR CONTRACT ADDRESS";
+// export var hhrpc = "http://localhost:8545";
+
+// /*
+// Rinkeby Testnet
+// */
+export var goeresell = "0x1af8f875fd5cbda390fbf248457efa1cac23b3d0";
+export var goenftcol = "0x379f42a48120ecce2973a5588ee37c88a783954c";
+export var goenft = "0x2675fd23729c2b8c3c9bf0cc80dd63b7a629801a";
+export var goemarket = "0x2399ae7b3ba9a77f73ce6c23f567c1fc05228571";
+export var goerpc = "https://rpc.ankr.com/eth_rinkeby";
+
+// /*
+// BSC Testnet
+// */
+export var bsctresell = "0xDDCD45a28f787dD45a26b941F71b57CaE8D8CE61";
+export var bsctnftcol = "0x22CdC377103E25602FA0c6A10A62C3963375c65b";
+export var bsctnft = "0x6ecEb1E223a3Ee7B8d0658C1155bad9b12a37Efb";
+export var bsctmarket = "0x47dC71132303282fB942B587a34943895c1255a2";
+export var bsctrpc = "https://data-seed-prebsc-2-s3.binance.org:8545";
+
+// /*
+// Mumbai Testnet
+// */
+// export var mmresell = "YOUR CONTRACT ADDRESS";
+// export var mmnftcol = "YOUR CONTRACT ADDRESS";
+// export var mmnft = "YOUR CONTRACT ADDRESS";
+// export var mmmarket = "YOUR CONTRACT ADDRESS";
+export var mmrpc = "https://matic-testnet-archive-rpc.bwarelabs.com";

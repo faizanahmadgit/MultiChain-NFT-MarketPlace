@@ -5,6 +5,7 @@ import  Link from "next/link";    //link a button to a page
 import { spacer, Button, Col, Row, Container, Dropdown} from '@nextui-org/react'; //objects for html
 import react from "react";
 import Footer from "./footer.js"
+import ConnectChain from "../engine/connectchain.js";
 
 
 const theme = createTheme({
@@ -102,6 +103,7 @@ function MyApp({ Component, pageProps }) {
                     </Link>
                   </Button>
                 </Col>
+                < ConnectChain />
                 </Row>
      </Container>
      <NextUIProvider theme={theme}>
