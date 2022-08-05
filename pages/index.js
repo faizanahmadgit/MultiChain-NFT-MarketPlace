@@ -10,7 +10,7 @@ import NFT from '../engine/NFT.json';
 import { Grid, Card, Text, Button, Row, Spacer, Container } from '@nextui-org/react';
 //need all 4 contracts here
 import { hhnft, hhmarket, hhresell, hhnftcol, hhrpc } from '../engine/configuration';
-import { goenft, goemarket, goeresell, goenftcol, goerpc } from '../engine/configuration';
+import { rinknft, rinkmarket, rinkresell, rinknftcol, rinkrpc } from '../engine/configuration';
 import { bsctnft, bsctmarket, bsctresell, bsctnftcol, bsctrpc } from '../engine/configuration';
 import { mmnft, mmmarket, mmresell, mmnftcol, mmrpc } from '../engine/configuration';
 import { cipherHH, cipherEth, simpleCrypto } from '../engine/configuration';
@@ -22,8 +22,8 @@ import "react-multi-carousel/lib/styles.css";
 export default function Home() {
   const [hhlist, hhResellNfts] = useState([])
   const [hhnfts, hhsetNfts] = useState([]); //will show nfts created  and listed by user
-  const [goelist, goeResellNfts] = useState([])
-  const [goenfts, goesetNfts] = useState([])
+  const [rinklist, rinkResellNfts] = useState([])
+  const [rinknfts, rinksetNfts] = useState([])
   const [bsctlist, bsctResellNfts] = useState([])
   const [bsctnfts, bsctsetNfts] = useState([])
   const [mmlist, MumResellNfts] = useState([])
@@ -34,10 +34,10 @@ export default function Home() {
   // }, [hhResellNfts, hhsetNfts])
   useEffect(() => {
     loadHardHatResell()
-    loadGoerliResell()
+    loadRinkebyResell()
     loadBsctResell()
-  }, [hhResellNfts, hhsetNfts, goeResellNfts, 
-    goesetNfts, bsctResellNfts, bsctsetNfts])
+  }, [hhResellNfts, hhsetNfts, rinkResellNfts, 
+    rinksetNfts, bsctResellNfts, bsctsetNfts])
 
   const handleConfetti = () => {
     confetti();
@@ -145,15 +145,15 @@ export default function Home() {
   }
 
   /*
-  Goerli Listings Functions
+  Rinkeby Listings Functions
   */
 
-  async function loadGoerliResell() {
-    const provider = new ethers.providers.JsonRpcProvider(goerpc)
+  async function loadRinkebyResell() {
+    const provider = new ethers.providers.JsonRpcProvider(rinkrpc)
     const key = simpleCrypto.decrypt(cipherEth)
     const wallet = new ethers.Wallet(key, provider);
-    const contract = new ethers.Contract(goenftcol, NFTCollection, wallet);
-    const market = new ethers.Contract(goeresell, Resell, wallet);
+    const contract = new ethers.Contract(rinknftcol, NFTCollection, wallet);
+    const market = new ethers.Contract(rinkresell, Resell, wallet);
     const itemArray = [];
     contract.totalSupply().then(result => {
       for (let i = 0; i < result; i++) {
@@ -161,7 +161,7 @@ export default function Home() {
         var owner = contract.ownerOf(token)
         var getOwner = Promise.resolve(owner)
         getOwner.then(address => {
-        if (address == goeresell) {
+        if (address == rinkresell) {
         const rawUri = contract.tokenURI(token)
         const Uri = Promise.resolve(rawUri)
         const getUri = Uri.then(value => {
@@ -169,7 +169,7 @@ export default function Home() {
           // let cleanUri = str.replace('ipfs://', 'https://ipfs.io/ipfs/')
           // console.log(cleanUri)
           let metadata = axios.get(str).catch(function (error) {
-            console.log(error.toJSON());
+            console.log(error);
           });
           return metadata;
         })
@@ -202,16 +202,16 @@ export default function Home() {
     }})
     }})
     await new Promise(r => setTimeout(r, 3000));
-    goeResellNfts(itemArray)
-    loadGoeSaleNFTs();
+    rinkResellNfts(itemArray)
+    loadRinkSaleNFTs();
   }
 
-  async function loadGoeSaleNFTs() {
+  async function loadRinkSaleNFTs() {
     const hhPrivkey = simpleCrypto.decrypt(cipherEth)
-    const provider = new ethers.providers.JsonRpcProvider(goerpc)
+    const provider = new ethers.providers.JsonRpcProvider(rinkrpc)
     const wallet = new ethers.Wallet(hhPrivkey, provider);
-    const tokenContract = new ethers.Contract(goenft, NFT, wallet)
-    const marketContract = new ethers.Contract(goemarket, Market, wallet)
+    const tokenContract = new ethers.Contract(rinknft, NFT, wallet)
+    const marketContract = new ethers.Contract(rinkmarket, Market, wallet)
     const data = await marketContract.getAvailableNft()
     const items = await Promise.all(data.map(async i => {
       const tokenUri = await tokenContract.tokenURI(i.tokenId)
@@ -228,21 +228,21 @@ export default function Home() {
       }
       return item
     }))
-    goesetNfts(items)
+    rinksetNfts(items)
   }
 
-  async function buyNewGoe(nft) {
+  async function buyNewRink(nft) {
     const web3Modal = new Web3Modal()
     const connection = await web3Modal.connect()
     const provider = new ethers.providers.Web3Provider(connection)
     const signer = provider.getSigner()
-    const contract = new ethers.Contract(goemarket, Market, signer)
+    const contract = new ethers.Contract(rinkmarket, Market, signer)
     const price = ethers.utils.parseUnits(nft.price.toString(), 'ether')
-    const transaction = await contract.n2DMarketSale(goenft, nft.tokenId, {
+    const transaction = await contract.n2DMarketSale(rinknft, nft.tokenId, {
       value: price
     })
     await transaction.wait()
-    loadGoeSaleNFTs()
+    loadRinkSaleNFTs()
   }
 
   /*
@@ -590,13 +590,13 @@ export default function Home() {
         </Row>
         <Grid.Container gap={1} justify="flex-start">
           {
-            goelist.slice(0, 9).map((nft, id) => {
+            rinklist.slice(0, 9).map((nft, id) => {
                 async function buylistNft() {
                   const web3Modal = new Web3Modal()
                   const connection = await web3Modal.connect()
                   const provider = new ethers.providers.Web3Provider(connection)
                   const signer = provider.getSigner()
-                  const contract = new ethers.Contract(goeresell, Resell, signer)
+                  const contract = new ethers.Contract(rinkresell, Resell, signer)
                   const transaction = await contract.buyNft(nft.tokenId, { value: nft.cost })
                   await transaction.wait()
                   router.push('/portal')
@@ -639,7 +639,7 @@ export default function Home() {
         </Row>
         <Grid.Container gap={1} justify="flex-start">
           {
-            goenfts.slice(0, 4).map((nft, i) => (
+            rinknfts.slice(0, 4).map((nft, i) => (
               <Grid xs={3}>
                 <Card style={{ marginRight: '3px', boxShadow: '1px 1px 10px #ffffff' }} variant="bordered" key={i}>
                   <Text style={{
@@ -660,7 +660,7 @@ export default function Home() {
                     <Row wrap="wrap" justify="space-between" align="center">
                       <Text wrap="wrap">{nft.description}</Text>
                       <Text style={{ fontSize: '30px' }}>{nft.price}<img src='n2dr-logo.png' style={{ width: '60px', height: '25px', marginTop: '4px' }} /></Text>
-                      <Button color="gradient" style={{ fontSize: '20px' }} onClick={() => handleConfetti(buyNewGoe(nft))}>Buy</Button>
+                      <Button color="gradient" style={{ fontSize: '20px' }} onClick={() => handleConfetti(buyNewRink(nft))}>Buy</Button>
                     </Row>
                   </Card.Footer>
                 </Card>

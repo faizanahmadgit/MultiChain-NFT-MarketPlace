@@ -53,11 +53,11 @@ Global Parameters
 // /*
 // Rinkeby Testnet
 // */
-export var goeresell = "0x1af8f875fd5cbda390fbf248457efa1cac23b3d0";
-export var goenftcol = "0x379f42a48120ecce2973a5588ee37c88a783954c";
-export var goenft = "0x2675fd23729c2b8c3c9bf0cc80dd63b7a629801a";
-export var goemarket = "0x2399ae7b3ba9a77f73ce6c23f567c1fc05228571";
-export var goerpc = "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161";
+export var rinkresell = "0x1af8f875fd5cbda390fbf248457efa1cac23b3d0";
+export var rinknftcol = "0x379f42a48120ecce2973a5588ee37c88a783954c";
+export var rinknft = "0x2675fd23729c2b8c3c9bf0cc80dd63b7a629801a";
+export var rinkmarket = "0x2399ae7b3ba9a77f73ce6c23f567c1fc05228571";
+export var rinkrpc = "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161";
 
 // /*
 // BSC Testnet

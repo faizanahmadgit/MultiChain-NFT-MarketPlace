@@ -6,7 +6,7 @@ import NFT from '../engine/NFT.json';
 import Market from '../engine/Market.json';
 import { hhnft, hhmarket } from '../engine/configuration';
 import { mmnft, mmmarket } from '../engine/configuration';
-import { goenft, goemarket } from '../engine/configuration';
+import { rinknft, rinkmarket } from '../engine/configuration';
 import { bsctnft, bsctmarket } from '../engine/configuration';
 import detectEthereumProvider from '@metamask/detect-provider';
 import { Card, Button, Input, Col, Row, Spacer, Container, Text, Grid } from '@nextui-org/react';
@@ -64,15 +64,15 @@ async function setNft(){
   const web3Modal = new Web3Modal()
   await web3Modal.connect();
   var hh = "0x7a69";
-  var goe = "0x5";
+  var rink = "0x4";
   var mm = "0x13881";
   var bsct = "0x61";
   const connected = await detectEthereumProvider(); //get the blockchian, user wallet connected to
   if (connected.chainId == hh) {
     var nftcontract = hhnft
   }
-  else if (connected.chainId == goe) {
-    var nftcontract = goenft
+  else if (connected.chainId == rink) {
+    var nftcontract = rinknft
   }
   else if (connected.chainId == mm) {
     var nftcontract = mmnft
@@ -87,15 +87,15 @@ async function setNft(){
 
 async function setMarket(){
   var hh = "0x7a69";
-  var goe = "0x5";
+  var rink = "0x4";
   var mm = "0x13881";
   var bsct = "0x61";
   const connected = await detectEthereumProvider();
   if (connected.chainId == hh) {
     var market = hhmarket
   }
-  else if (connected.chainId == goe) {
-    var market = goemarket
+  else if (connected.chainId == rink) {
+    var market = rinkmarket
   }
   else if (connected.chainId == mm) {
     var market = mmmarket

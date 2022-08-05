@@ -12,7 +12,7 @@ import 'sf-font';
 import Web3 from 'web3';
 import detectEthereumProvider from '@metamask/detect-provider';     // to detect chainid of metamask wallet
 import { mmnft, mmresell, mmnftcol, mmrpc } from '../engine/configuration';
-import { goenft, goeresell, goenftcol, goerpc } from '../engine/configuration'; //for Rinkeby contracts
+import { rinknft, rinkresell, rinknftcol, rinkrpc } from '../engine/configuration'; //for Rinkeby contracts
 import { hhnft, hhresell, hhnftcol, hhrpc } from '../engine/configuration';
 import { bsctnft, bsctresell, bsctnftcol, bsctrpc } from '../engine/configuration'; //for bsctestnet contracts
 import { cipherHH,cipherEth, simpleCrypto  } from '../engine/configuration';
@@ -39,15 +39,15 @@ export default function Sell() {
       //to check the provider
     async function setRpc(){   
       var hh = "0x7a69";
-      var goe = "0x4"; //for Rinkeby
+      var rink = "0x4"; //for Rinkeby
       var mm = "0x13881";
       var bsct = "0x61";
       const connected = await detectEthereumProvider(); //will tell what chain user wallet connected to
       if (connected.chainId == hh) {
         var mainnet = hhrpc
       }
-      else if (connected.chainId == goe) {
-        var mainnet = goerpc
+      else if (connected.chainId == rink) {
+        var mainnet = rinkrpc
       }
       else if (connected.chainId == mm) {
         var mainnet = mmrpc
@@ -62,15 +62,15 @@ export default function Sell() {
 
     async function setNftCol(){
       var hh = "0x7a69";
-      var goe = "0x4";    //for Rinkeby
+      var rink = "0x4";    //for Rinkeby
       var mm = "0x13881";
       var bsct = "0x61";
       const connected = await detectEthereumProvider();
       if (connected.chainId == hh) {
         var nftcol = hhnftcol
       }
-      else if (connected.chainId == goe) {
-        var nftcol = goenftcol
+      else if (connected.chainId == rink) {
+        var nftcol = rinknftcol
       }
       else if (connected.chainId == mm) {
         var nftcol = mmnftcol
@@ -84,15 +84,15 @@ export default function Sell() {
     }
     async function setNftCustom(){
       var hh = "0x7a69";
-      var goe = "0x4";    //For Rinkeby
+      var rink = "0x4";    //For Rinkeby
       var mm = "0x13881";
       var bsct = "0x61";
       const connected = await detectEthereumProvider();
       if (connected.chainId == hh) {
         var nft = hhnft
       }
-      else if (connected.chainId == goe) {
-        var nft = goenft
+      else if (connected.chainId == rink) {
+        var nft = rinknft
       }
       else if (connected.chainId == mm) {
         var nft = mmnft
@@ -108,15 +108,15 @@ export default function Sell() {
 
     async function setNftResell(){
       var hh = "0x7a69";
-      var goe = "0x4";      //for rinkeby
+      var rink = "0x4";      //for rinkeby
       var mm = "0x13881";
       var bsct = "0x61";
       const connected = await detectEthereumProvider();
       if (connected.chainId == hh) {
         var nftresell = hhresell
       }
-      else if (connected.chainId == goe) {
-        var nftresell = goeresell
+      else if (connected.chainId == rink) {
+        var nftresell = rinkresell
       }
       else if (connected.chainId == mm) {
         var nftresell = mmresell
@@ -133,14 +133,14 @@ export default function Sell() {
 //to get the correct chain name
 async function getChain(){
   var hh = "0x7a69";
-  var goe = "0x4";
+  var rink = "0x4";
   var mm = "0x13881";
   var bsct = "0x61";
   const connected = await detectEthereumProvider(); // gets the blockchain, user wallet connected to
   if (connected.chainId == hh) {
     var chainname = "HardHat"
   }
-  else if (connected.chainId == goe) {
+  else if (connected.chainId == rink) {
     var chainname = "Rinkeby Testnet"
   }
   else if (connected.chainId == mm) {
@@ -172,7 +172,7 @@ async function getChain(){
           var address = nftcol; //from usestate
           var network = rpc;    //from usestate
         const provider = new ethers.providers.JsonRpcProvider(network)  //will use network as per rpc from blockhchain
-        const key = simpleCrypto.decrypt(cipherHH)
+        const key = simpleCrypto.decrypt(cipherEth)
         const wallet = new ethers.Wallet(key, provider);
         const contract = new ethers.Contract(address, NFTCollection, wallet); //will use address as per blockchain
         const itemArray = [];
@@ -222,7 +222,7 @@ async function getChain(){
         var address = nftcustom
         var network = rpc
         const provider = new ethers.providers.JsonRpcProvider(network) //rpc got from above
-        const key = simpleCrypto.decrypt(cipherHH)
+        const key = simpleCrypto.decrypt(cipherEth)
         const wallet = new ethers.Wallet(key, provider);
         const contract = new ethers.Contract(address, NFT, wallet);   //NFTbyUser Contract
         const itemArray = [];
