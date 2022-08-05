@@ -136,7 +136,7 @@ async function getChain(){
   var goe = "0x4";
   var mm = "0x13881";
   var bsct = "0x61";
-  const connected = await detectEthereumProvider();
+  const connected = await detectEthereumProvider(); // gets the blockchain, user wallet connected to
   if (connected.chainId == hh) {
     var chainname = "HardHat"
   }
@@ -152,11 +152,6 @@ async function getChain(){
   getChainName(chainname);
   console.log(chainname)
 }
-
-
-
-
-
 
     async function connectUser() {
       const web3Modal = new Web3Modal()
