@@ -17,7 +17,7 @@ import 'sf-font';
 export default function createMarket() {
     const [fileUrl, setFileUrl] = useState(null); //using usestate to get url of nft image
     //for multichain
-    const [nftcontract, getNft] = useState([]);   // to store nft contract
+    const [myNFT, getNft] = useState([]);   // to store nft contract
     const [market, getMarket] = useState([]);     // to store market contract
 
     const [formInput, updateFormInput] = useState({ price: '', name: '', description: '' });//only applicable to listing thats why price
@@ -116,7 +116,7 @@ async function setMarket(){
         const connection = await web3Modal.connect()
         const provider = new ethers.providers.Web3Provider(connection)
         const signer = provider.getSigner()
-        let contract = new ethers.Contract(nftcontract, NFT, signer) //NFTbyuser Contract
+        let contract = new ethers.Contract(myNFT, NFT, signer) //NFTbyuser Contract
         let transaction = await contract.createNFT(url)        // Calling NFTbyUser contract function
         let tx = await transaction.wait()
         let event = tx.events[0]  
@@ -126,7 +126,7 @@ async function setMarket(){
         contract = new ethers.Contract(market, Market, signer)        //marketplace of NFTbyUser contract
         let listingFee = await contract.getListingFee()
         listingFee = listingFee.toString()
-        transaction = await contract.createVaultItem(nftcontract, tokenId, price, { value: listingFee }) //putting on sale and paying
+        transaction = await contract.createVaultItem(myNFT, tokenId, price, { value: listingFee }) //putting on sale and paying
                                                                                                    //listingFee
         await transaction.wait()
         router.push('/')
@@ -152,7 +152,7 @@ async function setMarket(){
         const connection = await web3Modal.connect()
         const provider = new ethers.providers.Web3Provider(connection)
         const signer = provider.getSigner()
-        let contract = new ethers.Contract(nftcontract, NFT, signer)
+        let contract = new ethers.Contract(myNFT, NFT, signer)
         let cost = await contract.cost()    //GET THE MINTING COST 
         let transaction = await contract.mintNFT(url, { value: cost })
         await transaction.wait()
